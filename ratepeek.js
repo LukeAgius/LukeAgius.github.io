@@ -5,28 +5,43 @@
 	// ========================== Constants =============================
 
 	app.constant('ExchangeServiceDetails',{
-		url 				: "https://api.at.govt.nz/v1/gtfs/",
-		apiKey 				: "?api_key=3657bf8e-3565-4ea3-91be-33c243b9b970",
-		agencyInformation 	: "agency/"
+		url 				: "http://www.jsonrates.com/get/?from=NZD&to=EUR&apiKey=jr-92758bdeda026d0f7fcc154b8ea0b86d"
 	});
 
 	// ========================== Routing ===============================
 	app.config(function($routeProvider){
 		$routeProvider
-			.when('/main', {
-				templateUrl	: 'Views/RouteSearch.html',
-				controller 	: "RoutesController"
-			}).
-			when('/route/:routeID',{
-				templateUrl : 'Views/RouteSearch.html',
+			.when('/:fromCurrency/:toCurrency',{
+				templateUrl : 'Views/RatePeeker.html',
 				controller 	: "GeneralController"
 			})
 	});
 
 	// ========================== Controller ===============================
-	app.controller("GeneralController", ["$scope","ExchangeService",function($scope, ExchangeService){
+	app.controller("GeneralController", ["$scope","ExchangeService","$routeParams",
+		function($scope, ExchangeService,$routeParams){
 
-		// Calls
-
+		$scope.from = $routeParams.fromCurrency;
+		$scope.to = $routeParams.toCurrency;
+		$scope.RateInfo = ExchangeService.getRate();
+		// Call Service
 	}]);
+
+
+	// ========================== Service ===============================
+	app.factory("ExchangeService", function($http, ExchangeServiceDetails){
+
+		// Get Agency Information from AT
+		var getRate = function(){
+			return $http.get("http://www.jsonrates.com/get/?from=NZD&to=EUR&apiKey=jr-92758bdeda026d0f7fcc154b8ea0b86d")
+				.then(function(response){
+					return response.data;
+				});
+		};
+
+		// Exposing functions
+		return {
+			getRate: getRate
+		};
+	});
 }());
