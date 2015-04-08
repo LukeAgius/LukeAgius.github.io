@@ -1,12 +1,7 @@
 (function(){ 
 	
+	JR.apikey('jr-92758bdeda026d0f7fcc154b8ea0b86d');
 	var app = angular.module("ratepeek", ["ngRoute"]);
-
-	// ========================== Constants =============================
-
-	app.constant('ExchangeServiceDetails',{
-		url 				: "http://www.jsonrates.com/get/?from=NZD&to=EUR&apiKey=jr-92758bdeda026d0f7fcc154b8ea0b86d"
-	});
 
 	// ========================== Routing ===============================
 	app.config(function($routeProvider){
@@ -18,30 +13,18 @@
 	});
 
 	// ========================== Controller ===============================
-	app.controller("GeneralController", ["$scope","ExchangeService","$routeParams",
-		function($scope, ExchangeService,$routeParams){
+	app.controller("GeneralController", ["$scope","$routeParams",
+		function($scope,$routeParams){
+			
+			JR.from($routeParams.fromCurrency).to($routeParams.toCurrency).get(function(result) {
+				document.getElementById("fromToRate").innerText = result.rate;
+			});
 
-		$scope.from = $routeParams.fromCurrency;
-		$scope.to = $routeParams.toCurrency;
-		$scope.RateInfo = ExchangeService.getRate();
-		// Call Service
+			JR.from($routeParams.toCurrency).to($routeParams.fromCurrency).get(function(result) {
+				document.getElementById("toFromRate").innerText = result.rate;
+			});
+
+			$scope.from = $routeParams.fromCurrency;
+			$scope.to = $routeParams.toCurrency;
 	}]);
-
-
-	// ========================== Service ===============================
-	app.factory("ExchangeService", function($http, ExchangeServiceDetails){
-
-		// Get Agency Information from AT
-		var getRate = function(){
-			return $http.get("http://www.jsonrates.com/get/?from=NZD&to=EUR&apiKey=jr-92758bdeda026d0f7fcc154b8ea0b86d")
-				.then(function(response){
-					return response.data;
-				});
-		};
-
-		// Exposing functions
-		return {
-			getRate: getRate
-		};
-	});
 }());

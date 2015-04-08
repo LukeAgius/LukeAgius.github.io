@@ -1,0 +1,13 @@
+/* Styles go here */
+
+#rateDisplay {
+    
+    width: 1300px;
+  height: 100px;
+  position: absolute;
+  top: 40%;
+  left: 30%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 100px;
+  margin: -70px 0 0 -170px;
+}
