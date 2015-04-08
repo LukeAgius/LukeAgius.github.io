@@ -3,6 +3,24 @@
     height: 100px;
     margin: -70px 0 0 -170px;
     position: absolute;
-    top: 40%; left: 30%;
+    top: 30%; left: 30%;
     font-family: 'Montserrat', sans-serif; font-size: 100px;
+
+}
+
+#rateDisplay input[type=text],
+#rateDisplay input[type=text]:hover,
+#rateDisplay input[type=text]:focus,
+#rateDisplay input[type=text]:active
+{
+    border: 0;
+    outline: none;
+    outline-offset: 0;
+    background-color:transparent;
+    font-family: 'Montserrat', sans-serif; font-size: 45px;
+}
+
+
+#toFromRateDate, #fromToRateDate {
+    font-family: 'Montserrat', sans-serif; font-size: 30px;
 }
