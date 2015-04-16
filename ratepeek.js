@@ -16,20 +16,22 @@
 	});
 
 	// Angular Controller
-	app.controller("GeneralController", ["$scope","$routeParams",
-		function($scope,$routeParams){
+	app.controller("GeneralController", ["$scope","$routeParams","$http",
+		function($scope,$routeParams,$http){
 
-			// Converting from first currency to second currency in the url 
-			JR.from($routeParams.fromCurrency).to($routeParams.toCurrency).get(function(result) {
-				document.getElementById("fromToRate").innerText = result.rate;
-				document.getElementById("fromToRateDate").innerText = result.utctime + " UTC";
-			});
+			// Getting fromCurrency as base					  
+			$http.get("http://api.fixer.io/latest?base="+$routeParams.fromCurrency)
+				.then(function(response){
+					$scope.fromToRate = response.data.rates.NZD;	
+					$scope.date = response.data.date;
+				});
 
-			// Converting from second currency to first currency in the url 
-			JR.from($routeParams.toCurrency).to($routeParams.fromCurrency).get(function(result) {
-				document.getElementById("toFromRate").innerText = result.rate;
-				document.getElementById("toFromRateDate").innerText = result.utctime
-			});
+
+			// Getting toCurrency as base
+			$http.get("http://api.fixer.io/latest?base="+$routeParams.toCurrency)
+				.then(function(response){
+					$scope.toFromRate = response.data.rates.EUR;		
+				});
 
 			// Passing selected currencies from URL
 			$scope.from = $routeParams.fromCurrency;
