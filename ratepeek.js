@@ -1,8 +1,5 @@
 (function(){ 
 	
-	// Setting JsonRates API Key
-	JR.apikey('jr-92758bdeda026d0f7fcc154b8ea0b86d');
-
 	// Init Angular App
 	var app = angular.module("ratepeek", ["ngRoute"]);
 
