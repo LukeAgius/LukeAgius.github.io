@@ -3,7 +3,7 @@
     height: 100px;
     margin: -70px 0 0 -170px;
     position: absolute;
-    top: 30%; left: 30%;
+    top: 20%; left: 30%;
     font-family: 'Montserrat', sans-serif; font-size: 100px;
 
 }
@@ -22,5 +22,6 @@
 
 
 #toFromRateDate, #fromToRateDate {
-    font-family: 'Montserrat', sans-serif; font-size: 30px;
+    margin-bottom: 160px;
+    font-family: 'Montserrat', sans-serif; font-size: 13px;
 }

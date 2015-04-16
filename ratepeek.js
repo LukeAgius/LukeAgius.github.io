@@ -18,13 +18,12 @@
 	// Angular Controller
 	app.controller("GeneralController", ["$scope","$routeParams",
 		function($scope,$routeParams){
-			
+
 			// Converting from first currency to second currency in the url 
 			JR.from($routeParams.fromCurrency).to($routeParams.toCurrency).get(function(result) {
 				document.getElementById("fromToRate").innerText = result.rate;
 				document.getElementById("fromToRateDate").innerText = result.utctime + " UTC";
 			});
-
 
 			// Converting from second currency to first currency in the url 
 			JR.from($routeParams.toCurrency).to($routeParams.fromCurrency).get(function(result) {
@@ -32,15 +31,8 @@
 				document.getElementById("toFromRateDate").innerText = result.utctime
 			});
 
-
 			// Passing selected currencies from URL
 			$scope.from = $routeParams.fromCurrency;
 			$scope.to = $routeParams.toCurrency;
-
-
-
-	}]);
-
-
-
+		}]);
 }());
